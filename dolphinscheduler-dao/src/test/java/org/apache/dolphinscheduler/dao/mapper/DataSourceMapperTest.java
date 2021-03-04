@@ -373,7 +373,6 @@ public class DataSourceMapperTest {
         user.setEmail("xx@123.com");
         user.setUserType(UserType.GENERAL_USER);
         user.setCreateTime(new Date());
-        user.setTenantId(1);
         user.setUpdateTime(new Date());
         userMapper.insert(user);
         return user;

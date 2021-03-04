@@ -82,9 +82,7 @@ public class UsersController extends BaseController {
      * @param userName     user name
      * @param userPassword user password
      * @param email        email
-     * @param tenantId     tenant id
      * @param phone        phone
-     * @param queue        queue
      * @return create result code
      */
     @ApiOperation(value = "createUser", notes = "CREATE_USER_NOTES")
@@ -92,7 +90,6 @@ public class UsersController extends BaseController {
             @ApiImplicitParam(name = "userName", value = "USER_NAME", type = "String"),
             @ApiImplicitParam(name = "userPassword", value = "USER_PASSWORD", type = "String"),
             @ApiImplicitParam(name = "tenantId", value = "TENANT_ID", dataType = "Int", example = "100"),
-            @ApiImplicitParam(name = "queue", value = "QUEUE", dataType = "String"),
             @ApiImplicitParam(name = "email", value = "EMAIL", dataType = "String"),
             @ApiImplicitParam(name = "phone", value = "PHONE", dataType = "String"),
             @ApiImplicitParam(name = "state", value = "STATE", dataType = "Int", example = "1")
@@ -103,14 +100,12 @@ public class UsersController extends BaseController {
     public Result createUser(@ApiIgnore @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
                              @RequestParam(value = "userName") String userName,
                              @RequestParam(value = "userPassword") String userPassword,
-                             @RequestParam(value = "tenantId") int tenantId,
-                             @RequestParam(value = "queue", required = false, defaultValue = "") String queue,
                              @RequestParam(value = "email") String email,
                              @RequestParam(value = "phone", required = false) String phone,
                              @RequestParam(value = "state", required = false) int state) throws Exception {
-        logger.info("login user {}, create user, userName: {}, email: {}, tenantId: {}, userPassword: {}, phone: {}, user queue: {}, state: {}",
-                loginUser.getUserName(), userName, email, tenantId, Constants.PASSWORD_DEFAULT, phone, queue, state);
-        Map<String, Object> result = usersService.createUser(loginUser, userName, userPassword, email, tenantId, phone, queue, state);
+        logger.info("login user {}, create user, userName: {}, email: {}, userPassword: {}, phone: {}, state: {}",
+                loginUser.getUserName(), userName, email, Constants.PASSWORD_DEFAULT, phone, state);
+        Map<String, Object> result = usersService.createUser(loginUser, userName, userPassword, email,  phone,  state);
         return returnDataList(result);
     }
 
@@ -179,14 +174,12 @@ public class UsersController extends BaseController {
                              @RequestParam(value = "id") int id,
                              @RequestParam(value = "userName") String userName,
                              @RequestParam(value = "userPassword") String userPassword,
-                             @RequestParam(value = "queue", required = false, defaultValue = "") String queue,
                              @RequestParam(value = "email") String email,
-                             @RequestParam(value = "tenantId") int tenantId,
                              @RequestParam(value = "phone", required = false) String phone,
                              @RequestParam(value = "state", required = false) int state) throws Exception {
-        logger.info("login user {}, updateProcessInstance user, userName: {}, email: {}, tenantId: {}, userPassword: {}, phone: {}, user queue: {}, state: {}",
-                loginUser.getUserName(), userName, email, tenantId, Constants.PASSWORD_DEFAULT, phone, queue, state);
-        Map<String, Object> result = usersService.updateUser(loginUser, id, userName, userPassword, email, tenantId, phone, queue, state);
+        logger.info("login user {}, updateProcessInstance user, userName: {}, email: {}, userPassword: {}, phone: {}, state: {}",
+                loginUser.getUserName(), userName, email, Constants.PASSWORD_DEFAULT, phone,  state);
+        Map<String, Object> result = usersService.updateUser(loginUser, id, userName, userPassword, email,  phone, state);
         return returnDataList(result);
     }
 

@@ -70,8 +70,8 @@ public class ProjectController extends BaseController {
     @Autowired
     private ProjectService projectService;
 
-    @Autowired
-    private ProcessDefinitionService processDefinitionService;
+//    @Autowired
+//    private ProcessDefinitionService processDefinitionService;
 
     /**
      * create project
@@ -261,29 +261,29 @@ public class ProjectController extends BaseController {
         return returnDataList(result);
     }
 
-    /**
-     * import process definition
-     *
-     * @param loginUser   login user
-     * @param file        resource file
-     * @param projectName project name
-     * @return import result code
-     */
-
-    @ApiOperation(value = "importProcessDefinition", notes= "EXPORT_PROCESS_DEFINITION_NOTES")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "file", value = "RESOURCE_FILE", required = true, dataType = "MultipartFile")
-    })
-    @PostMapping(value = "/import-definition")
-    @ApiException(IMPORT_PROCESS_DEFINE_ERROR)
-    public Result importProcessDefinition(@ApiIgnore @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                          @RequestParam("file") MultipartFile file,
-                                          @RequestParam("projectName") String projectName) {
-        logger.info("import process definition by id, login user:{}, project: {}",
-                loginUser.getUserName(), projectName);
-        Map<String, Object> result = processDefinitionService.importProcessDefinition(loginUser, file, projectName);
-        return returnDataList(result);
-    }
+//    /**
+//     * import process definition
+//     *
+//     * @param loginUser   login user
+//     * @param file        resource file
+//     * @param projectName project name
+//     * @return import result code
+//     */
+//
+//    @ApiOperation(value = "importProcessDefinition", notes= "EXPORT_PROCESS_DEFINITION_NOTES")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "file", value = "RESOURCE_FILE", required = true, dataType = "MultipartFile")
+//    })
+//    @PostMapping(value = "/import-definition")
+//    @ApiException(IMPORT_PROCESS_DEFINE_ERROR)
+//    public Result importProcessDefinition(@ApiIgnore @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+//                                          @RequestParam("file") MultipartFile file,
+//                                          @RequestParam("projectName") String projectName) {
+//        logger.info("import process definition by id, login user:{}, project: {}",
+//                loginUser.getUserName(), projectName);
+//        Map<String, Object> result = processDefinitionService.importProcessDefinition(loginUser, file, projectName);
+//        return returnDataList(result);
+//    }
 
     /**
      * query all project list

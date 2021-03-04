@@ -1,0 +1,26 @@
+export default {
+    likeTypeCode:{
+        name:'字典类型编码'
+    },
+    likeTypeName:{
+        name:'字典类型名称'
+    },
+    typeName:{
+        name:'类型名称'
+    },
+    typeCode:{
+        name:'类型编码'
+    },
+    itemCode:{
+        name:'字典编码'
+    },
+    itemName:{
+        name:'字典名称'
+    },
+    itemValue:{
+        name:'字典值'
+    },
+    order:{
+        name:'排序'
+    }
+}

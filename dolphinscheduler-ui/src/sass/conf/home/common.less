@@ -1,0 +1,229 @@
+/**
+ * Copyright (c) 2021 GWI.Co.Ltd. All rights reserved.
+ * @description: 公共样式，统一查询条件对齐方式，统一基础界面标准
+ * @author: liuql
+ * @create: 2021-01-14 14:35
+ **/
+.gwi-module-container-common {
+    height: 100%;
+}
+
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+/* 查询 form -- start */
+.search-form-common {
+
+    .el-input__inner,
+    .el-select,
+    .el-form-item {
+        width: 100%;
+    }
+
+    .el-form-item__label {
+        width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .el-form-item .el-form-item__content {
+        width: calc(100% - 100px);
+        height: 29px;
+    }
+
+    .search-form-btn-common {
+        text-align: right;
+        float: right;
+    }
+}
+
+@media (min-width: 1600px) {
+    .search-form-common .el-form-item__label {
+        width: 150px;
+    }
+
+    .search-form-common .el-form-item .el-form-item__content {
+        width: calc(100% - 150px);
+    }
+}
+
+.main-top .search-form-common .el-form-item {
+    margin-right: 0;
+}
+
+/* 查询 form -- end */
+
+/* 状态选择查询 -- start */
+.option-btn-common {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.status-btn-common {
+    margin-bottom: 10px;
+
+    .is-active .el-radio-button__inner {
+        background: #EDF4FF;
+        border-radius: 0;
+        color: #2468F2;
+    }
+
+    .el-radio-button__inner:hover {
+        color: #2468F2;
+    }
+}
+
+/* 状态选择查询 -- end */
+
+/* 大弹窗 -- start*/
+.normal-dialog-common {
+    .el-dialog__body {
+        max-height: 580px;
+        overflow-y: auto;
+    }
+}
+
+// 固定右侧动画弹窗 -- 抽屉
+.position-right-dialog {
+    .el-dialog {
+        position: absolute;
+        right: 0;
+        left: auto;
+        top: 64px;
+        height: calc(100% - 64px);
+        margin: 0 !important;
+        border-left: 2px solid #4090ff;
+    }
+
+    .el-dialog__body {
+        height: calc(100% - 126px);
+        padding-top: 16px;
+        padding-bottom: 20px;
+        overflow-y: auto;
+        box-sizing: border-box;
+    }
+
+    .el-dialog__header {
+        padding: 8px 20px 8px;
+        background: #ecf1f7;
+        color: #2c3f5d;
+
+        .el-dialog__title {
+            font-size: 16px;
+        }
+
+        .el-dialog__headerbtn {
+            top: 12px;
+
+            .el-dialog__close {
+                color: #5c7ab0;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+.position-right-dialog.dialog-fade-enter-active {
+    // -webkit-animation: dialog-fade-in .6s;
+    animation: right-dialog-fade-in .6s
+}
+
+.position-right-dialog.dialog-fade-leave-active {
+    // -webkit-animation: dialog-fade-out .6s;
+    animation: right-dialog-fade-out .6s
+}
+
+
+/* dialog animation */
+@keyframes right-dialog-fade-in {
+    0% {
+        transform: translate3d(100%, 0, 0);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes right-dialog-fade-out {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate3d(100%, 0, 0);
+        opacity: 0;
+    }
+}
+
+/* 大弹窗 -- end*/
+
+/* 提交form -- start*/
+.submit-form-common {
+    .el-col-12 {
+        height: 48px;
+
+        .el-select,.el-date-editor.el-input {
+            width: 100%;
+        }
+    }
+
+}
+
+/* 提交form -- end*/
+
+/* 分页 -- start */
+.pagination-skin-common {
+    .page-num-box {
+        width: auto;
+        padding: 0 2px;
+        text-align: center;
+        font-weight: normal;
+        border-top: 1px solid #DCDFE6;
+        border-bottom: 1px solid #DCDFE6;
+        color: #4f5e7b;
+
+        .current-page {
+            color: #4090ff;
+        }
+    }
+
+    .btn-prev,
+    .btn-next {
+        min-width: 20px;
+        border: 1px solid #DCDFE6;
+        box-sizing: border-box;
+    }
+
+    .btn-prev {
+        padding-left: 6px !important;
+        margin-right: 0px !important;
+        text-align: left;
+        border-right: none;
+    }
+
+    .btn-next {
+        padding-right: 6px !important;
+        margin-left: 0px !important;
+        text-align: right;
+        border-left: none;
+    }
+
+    .el-pagination__jump {
+        margin-left: 10px;
+    }
+
+}
+
+/* 分页 -- end */

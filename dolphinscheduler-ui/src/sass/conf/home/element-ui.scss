@@ -1,0 +1,17 @@
+ //覆盖一些element-ui样式
+ //暂时性解决dialog 问题 https://github.com/ElemeFE/element/issues/2461
+ .el-dialog {
+   transform: none;
+   left: 0;
+   position: relative;
+   margin: 0 auto;
+   margin-top: 10vh !important;
+ }
+ .el-form-item__label {
+   word-break: break-word !important;
+ }
+ .el-table {
+   .cell {
+     word-break: break-word !important;
+   }
+ }

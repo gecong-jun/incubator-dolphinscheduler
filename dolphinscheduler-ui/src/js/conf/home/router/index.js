@@ -364,6 +364,46 @@ const router = new Router({
       ]
     },
     {
+      path: '/system',
+      name: 'system',
+      component: resolve => require(['../pages/system/index'], resolve),
+      meta: {
+        title: `${i18n.$t('System')}`
+      },
+      redirect: {
+        name: 'users-manage'
+      },
+      children: [
+        {
+          path: '/system/users',
+          name: 'users-manage',
+          component: resolve => require(['../pages/system/pages/users/index'], resolve),
+          meta: {
+            title: `${i18n.$t('User Manage')}`,
+            refresh_in_switched_tab: true
+          }
+        },
+        {
+          path: '/system/roles',
+          name: 'role-manage',
+          component: resolve => require(['../pages/system/pages/roles/index'], resolve),
+          meta: {
+            title: `${i18n.$t('Role Manage')}`,
+            refresh_in_switched_tab: true
+          }
+        },
+        {
+          path: '/system/resource',
+          name: 'resource-manage',
+          component: resolve => require(['../pages/system/pages/resource/index'], resolve),
+          meta: {
+            title: `${i18n.$t('Resource Manage')}`,
+            refresh_in_switched_tab: true
+          }
+        },
+      ]
+    },
+    {
       path: '/security',
       name: 'security',
       component: resolve => require(['../pages/security/index'], resolve),

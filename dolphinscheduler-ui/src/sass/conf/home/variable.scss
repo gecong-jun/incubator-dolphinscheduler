@@ -1,0 +1,87 @@
+.h1{font-size:18px;}/*主标题 */
+.h2{font-size:16px;}/*标题 */
+.h3{font-size:14px;}/*小标题 */
+.ft-normal{font-size:12px;}/*一般文本 */
+.ft-small{font-size:10px;}/* 辅助文本，小文本*/
+.lf{float:left!important;}
+.rt{float:right!important;}
+.blod{font-weight: bold}
+.white{color:white!important;}
+.gray{color:#adadad!important;}
+.gray2{color:#606266!important;}
+.green{color: #33CC66!important;}
+.blue{color: #2468f2!important;}
+.dyan{color: #2c4084!important;}
+$mx-color: linear-gradient(to left,#2468f2 ,#3783fb );
+$mx-color-hover: linear-gradient(to left,#2468f2 ,#3783fb);
+$mx-color-icon:#90a0d6;
+$mx-color-error:#ff0000;
+@mixin radius-4 {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+@mixin mx-vertical{
+   transform:rotate(90deg);
+   -ms-transform:rotate(90deg); 	/* IE 9 */
+   -moz-transform:rotate(90deg); 	/* Firefox */
+   -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+   -o-transform:rotate(90deg);
+ }
+@mixin mx-container($ps:absolute,$bg:$mx-color,$tp:0px,$lf:0px,$rt:0px,$bt:0px,$wt:100%,$ht:100%) {
+  position:$ps;
+  background:$bg;
+  top: $tp;
+  left: $lf;
+  right: $rt;
+  bottom: $bt;
+  width: $wt;
+  height: $ht;
+}
+@mixin layout(){
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap:wrap;
+}
+@mixin mx-page($bg-color) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 1280px;
+  min-height:620px;
+  background: $bg-color;
+  overflow: hidden;
+}
+@mixin icon-button($bg1,$bg2){
+  display: inline-block;
+  width:22px;
+  height:22px;
+  padding:0!important;
+  background: $bg1;
+  color: #fff;
+  font-size:13px;
+  &:hover{
+    background:$bg2;
+    color: #fff;
+  }
+}
+
+.blue-shadow {
+  box-shadow: 0px 8px 16px 0px rgba(24, 96, 255, .3);
+  -moz-box-shadow:0px 8px 16px 0px rgba(24, 96, 255, .3);
+}
+.blue-shadow2 {
+  box-shadow: 0px 8px 12px 0px rgba(24, 96, 255, .1);
+  -moz-box-shadow:0px 8px 12px 0px rgba(24, 96, 255, .1);
+}
+.gray-shadow {
+  box-shadow: 0px 8px 16px 0px rgba(218, 226, 255, .2);
+  -moz-box-shadow:0px 8px 16px 0px rgba(218, 226, 255, .2);
+}
+.gray-shadow2 {
+  box-shadow: 0px 8px 12px 0px rgba(218, 226, 255, .3);
+  -moz-box-shadow:0px 8px 12px 0px rgba(218, 226, 255, .3);
+}
+.el-tooltip__popper{max-width:40%}

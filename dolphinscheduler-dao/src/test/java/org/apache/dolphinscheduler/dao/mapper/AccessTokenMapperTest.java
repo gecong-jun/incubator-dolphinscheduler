@@ -209,10 +209,10 @@ public class AccessTokenMapperTest {
         user.setUserType(UserType.GENERAL_USER);
         user.setEmail("test@qq.com");
         user.setPhone("13102557272");
-        user.setTenantId(1);
+//        user.setTenantId(1);
         user.setCreateTime(DateUtils.getCurrentDate());
         user.setUpdateTime(DateUtils.getCurrentDate());
-        user.setQueue("default");
+//        user.setQueue("default");
 
         int status = userMapper.insert(user);
 

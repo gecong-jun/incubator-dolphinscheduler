@@ -63,38 +63,12 @@ public class  User {
      */
     private UserType userType;
 
-    /**
-     *  tenant id
-     */
-    private int tenantId;
 
     /**
      * user state
      */
     private int state;
 
-    /**
-     * tenant code
-     */
-    @TableField(exist = false)
-    private String tenantCode;
-
-    /**
-     * queue name
-     */
-    @TableField(exist = false)
-    private String queueName;
-
-    /**
-     * alert group
-     */
-    @TableField(exist = false)
-    private String alertGroup;
-
-    /**
-     * user specified queue
-     */
-    private String queue;
 
     /**
      * create time
@@ -148,14 +122,6 @@ public class  User {
         this.userType = userType;
     }
 
-    public int getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(int tenantId) {
-        this.tenantId = tenantId;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -181,37 +147,7 @@ public class  User {
         this.phone = phone;
     }
 
-    public String getQueueName() {
-        return queueName;
-    }
 
-    public void setQueueName(String queueName) {
-        this.queueName = queueName;
-    }
-
-    public String getAlertGroup() {
-        return alertGroup;
-    }
-
-    public void setAlertGroup(String alertGroup) {
-        this.alertGroup = alertGroup;
-    }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
-    public String getQueue() {
-        return queue;
-    }
-
-    public void setQueue(String queue) {
-        this.queue = queue;
-    }
 
     public int getState() {
         return state;
@@ -255,12 +191,7 @@ public class  User {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", userType=" + userType +
-                ", tenantId=" + tenantId +
                 ", state=" + state +
-                ", tenantCode='" + tenantCode + '\'' +
-                ", queueName='" + queueName + '\'' +
-                ", alertGroup='" + alertGroup + '\'' +
-                ", queue='" + queue + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

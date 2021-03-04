@@ -91,8 +91,8 @@ public class UDFUserMapperTest {
         user.setEmail("xx@123.com");
         user.setUserType(UserType.GENERAL_USER);
         user.setCreateTime(new Date());
-        user.setTenantId(1);
-        user.setQueue("dolphin");
+//        user.setTenantId(1);
+//        user.setQueue("dolphin");
         user.setUpdateTime(new Date());
         userMapper.insert(user);
         return user;

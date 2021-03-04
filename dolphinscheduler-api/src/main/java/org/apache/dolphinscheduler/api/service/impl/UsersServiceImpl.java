@@ -116,9 +116,7 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
      * @param userName user name
      * @param userPassword user password
      * @param email email
-     * @param tenantId tenant id
      * @param phone phone
-     * @param queue queue
      * @return create result code
      * @throws Exception exception
      */
@@ -128,9 +126,7 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
                                           String userName,
                                           String userPassword,
                                           String email,
-                                          int tenantId,
                                           String phone,
-                                          String queue,
                                           int state) throws IOException {
         Map<String, Object> result = new HashMap<>();
 
@@ -145,24 +141,9 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
             putMsg(result, Status.USER_NO_OPERATION_PERM);
             return result;
         }
+//
+        User user = createUser(userName, userPassword, email, phone, state);
 
-        if (!checkTenantExists(tenantId)) {
-            putMsg(result, Status.TENANT_NOT_EXIST);
-            return result;
-        }
-
-        User user = createUser(userName, userPassword, email, tenantId, phone, queue, state);
-
-        Tenant tenant = tenantMapper.queryById(tenantId);
-        // resource upload startup
-        if (PropertyUtils.getResUploadStartupState()) {
-            // if tenant not exists
-            if (!HadoopUtils.getInstance().exists(HadoopUtils.getHdfsTenantDir(tenant.getTenantCode()))) {
-                createTenantDirIfNotExists(tenant.getTenantCode());
-            }
-            String userPath = HadoopUtils.getHdfsUserDir(tenant.getTenantCode(), user.getId());
-            HadoopUtils.getInstance().mkdir(userPath);
-        }
 
         putMsg(result, Status.SUCCESS);
         return result;
@@ -174,9 +155,7 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
     public User createUser(String userName,
                            String userPassword,
                            String email,
-                           int tenantId,
                            String phone,
-                           String queue,
                            int state) {
         User user = new User();
         Date now = new Date();
@@ -184,17 +163,12 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
         user.setUserName(userName);
         user.setUserPassword(EncryptionUtils.getMd5(userPassword));
         user.setEmail(email);
-        user.setTenantId(tenantId);
         user.setPhone(phone);
         user.setState(state);
         // create general users, administrator users are currently built-in
         user.setUserType(UserType.GENERAL_USER);
         user.setCreateTime(now);
         user.setUpdateTime(now);
-        if (StringUtils.isEmpty(queue)) {
-            queue = "";
-        }
-        user.setQueue(queue);
 
         // save user
         userMapper.insert(user);
@@ -216,7 +190,7 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
         user.setUserType(userType);
         user.setCreateTime(now);
         user.setUpdateTime(now);
-        user.setQueue("");
+//        user.setQueue("");
 
         // save user
         userMapper.insert(user);
@@ -330,9 +304,7 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
      * @param userName user name
      * @param userPassword user password
      * @param email email
-     * @param tenantId tennat id
      * @param phone phone
-     * @param queue queue
      * @return update result code
      * @throws Exception exception
      */
@@ -341,16 +313,11 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
                                           String userName,
                                           String userPassword,
                                           String email,
-                                          int tenantId,
                                           String phone,
-                                          String queue,
                                           int state) throws IOException {
         Map<String, Object> result = new HashMap<>();
         result.put(Constants.STATUS, false);
 
-        if (check(result, !hasPerm(loginUser, userId), Status.USER_NO_OPERATION_PERM)) {
-            return result;
-        }
         User user = userMapper.selectById(userId);
         if (user == null) {
             putMsg(result, Status.USER_NOT_EXIST, userId);
@@ -371,88 +338,69 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
             user.setUserName(userName);
         }
 
-        if (StringUtils.isNotEmpty(userPassword)) {
-            if (!CheckUtils.checkPassword(userPassword)) {
-                putMsg(result, Status.REQUEST_PARAMS_NOT_VALID_ERROR, userPassword);
-                return result;
-            }
-            user.setUserPassword(EncryptionUtils.getMd5(userPassword));
-        }
 
-        if (StringUtils.isNotEmpty(email)) {
-            if (!CheckUtils.checkEmail(email)) {
-                putMsg(result, Status.REQUEST_PARAMS_NOT_VALID_ERROR, email);
-                return result;
-            }
-            user.setEmail(email);
-        }
-
-        if (StringUtils.isNotEmpty(phone) && !CheckUtils.checkPhone(phone)) {
-            putMsg(result, Status.REQUEST_PARAMS_NOT_VALID_ERROR, phone);
-            return result;
-        }
         user.setPhone(phone);
-        user.setQueue(queue);
+//        user.setQueue(queue);
         user.setState(state);
         Date now = new Date();
         user.setUpdateTime(now);
 
         //if user switches the tenant, the user's resources need to be copied to the new tenant
-        if (user.getTenantId() != tenantId) {
-            Tenant oldTenant = tenantMapper.queryById(user.getTenantId());
-            //query tenant
-            Tenant newTenant = tenantMapper.queryById(tenantId);
-            if (newTenant != null) {
-                // if hdfs startup
-                if (PropertyUtils.getResUploadStartupState() && oldTenant != null) {
-                    String newTenantCode = newTenant.getTenantCode();
-                    String oldResourcePath = HadoopUtils.getHdfsResDir(oldTenant.getTenantCode());
-                    String oldUdfsPath = HadoopUtils.getHdfsUdfDir(oldTenant.getTenantCode());
-
-                    // if old tenant dir exists
-                    if (HadoopUtils.getInstance().exists(oldResourcePath)) {
-                        String newResourcePath = HadoopUtils.getHdfsResDir(newTenantCode);
-                        String newUdfsPath = HadoopUtils.getHdfsUdfDir(newTenantCode);
-
-                        //file resources list
-                        List<Resource> fileResourcesList = resourceMapper.queryResourceList(
-                                null, userId, ResourceType.FILE.ordinal());
-                        if (CollectionUtils.isNotEmpty(fileResourcesList)) {
-                            ResourceTreeVisitor resourceTreeVisitor = new ResourceTreeVisitor(fileResourcesList);
-                            ResourceComponent resourceComponent = resourceTreeVisitor.visit();
-                            copyResourceFiles(resourceComponent, oldResourcePath, newResourcePath);
-                        }
-
-                        //udf resources
-                        List<Resource> udfResourceList = resourceMapper.queryResourceList(
-                                null, userId, ResourceType.UDF.ordinal());
-                        if (CollectionUtils.isNotEmpty(udfResourceList)) {
-                            ResourceTreeVisitor resourceTreeVisitor = new ResourceTreeVisitor(udfResourceList);
-                            ResourceComponent resourceComponent = resourceTreeVisitor.visit();
-                            copyResourceFiles(resourceComponent, oldUdfsPath, newUdfsPath);
-                        }
-
-                        //Delete the user from the old tenant directory
-                        String oldUserPath = HadoopUtils.getHdfsUserDir(oldTenant.getTenantCode(), userId);
-                        HadoopUtils.getInstance().delete(oldUserPath, true);
-                    } else {
-                        // if old tenant dir not exists , create
-                        createTenantDirIfNotExists(oldTenant.getTenantCode());
-                    }
-
-                    if (HadoopUtils.getInstance().exists(HadoopUtils.getHdfsTenantDir(newTenant.getTenantCode()))) {
-                        //create user in the new tenant directory
-                        String newUserPath = HadoopUtils.getHdfsUserDir(newTenant.getTenantCode(), user.getId());
-                        HadoopUtils.getInstance().mkdir(newUserPath);
-                    } else {
-                        // if new tenant dir not exists , create
-                        createTenantDirIfNotExists(newTenant.getTenantCode());
-                    }
-
-                }
-            }
-            user.setTenantId(tenantId);
-        }
+//        if (user.getTenantId() != tenantId) {
+//            Tenant oldTenant = tenantMapper.queryById(user.getTenantId());
+//            //query tenant
+//            Tenant newTenant = tenantMapper.queryById(tenantId);
+//            if (newTenant != null) {
+//                // if hdfs startup
+//                if (PropertyUtils.getResUploadStartupState() && oldTenant != null) {
+//                    String newTenantCode = newTenant.getTenantCode();
+//                    String oldResourcePath = HadoopUtils.getHdfsResDir(oldTenant.getTenantCode());
+//                    String oldUdfsPath = HadoopUtils.getHdfsUdfDir(oldTenant.getTenantCode());
+//
+//                    // if old tenant dir exists
+//                    if (HadoopUtils.getInstance().exists(oldResourcePath)) {
+//                        String newResourcePath = HadoopUtils.getHdfsResDir(newTenantCode);
+//                        String newUdfsPath = HadoopUtils.getHdfsUdfDir(newTenantCode);
+//
+//                        //file resources list
+//                        List<Resource> fileResourcesList = resourceMapper.queryResourceList(
+//                                null, userId, ResourceType.FILE.ordinal());
+//                        if (CollectionUtils.isNotEmpty(fileResourcesList)) {
+//                            ResourceTreeVisitor resourceTreeVisitor = new ResourceTreeVisitor(fileResourcesList);
+//                            ResourceComponent resourceComponent = resourceTreeVisitor.visit();
+//                            copyResourceFiles(resourceComponent, oldResourcePath, newResourcePath);
+//                        }
+//
+//                        //udf resources
+//                        List<Resource> udfResourceList = resourceMapper.queryResourceList(
+//                                null, userId, ResourceType.UDF.ordinal());
+//                        if (CollectionUtils.isNotEmpty(udfResourceList)) {
+//                            ResourceTreeVisitor resourceTreeVisitor = new ResourceTreeVisitor(udfResourceList);
+//                            ResourceComponent resourceComponent = resourceTreeVisitor.visit();
+//                            copyResourceFiles(resourceComponent, oldUdfsPath, newUdfsPath);
+//                        }
+//
+//                        //Delete the user from the old tenant directory
+//                        String oldUserPath = HadoopUtils.getHdfsUserDir(oldTenant.getTenantCode(), userId);
+//                        HadoopUtils.getInstance().delete(oldUserPath, true);
+//                    } else {
+//                        // if old tenant dir not exists , create
+//                        createTenantDirIfNotExists(oldTenant.getTenantCode());
+//                    }
+//
+//                    if (HadoopUtils.getInstance().exists(HadoopUtils.getHdfsTenantDir(newTenant.getTenantCode()))) {
+//                        //create user in the new tenant directory
+//                        String newUserPath = HadoopUtils.getHdfsUserDir(newTenant.getTenantCode(), user.getId());
+//                        HadoopUtils.getInstance().mkdir(newUserPath);
+//                    } else {
+//                        // if new tenant dir not exists , create
+//                        createTenantDirIfNotExists(newTenant.getTenantCode());
+//                    }
+//
+//                }
+//            }
+//            user.setTenantId(tenantId);
+//        }
 
         // updateProcessInstance user
         userMapper.updateById(user);
@@ -485,14 +433,14 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
         // delete user
         User user = userMapper.queryTenantCodeByUserId(id);
 
-        if (user != null) {
-            if (PropertyUtils.getResUploadStartupState()) {
-                String userPath = HadoopUtils.getHdfsUserDir(user.getTenantCode(), id);
-                if (HadoopUtils.getInstance().exists(userPath)) {
-                    HadoopUtils.getInstance().delete(userPath, true);
-                }
-            }
-        }
+//        if (user != null) {
+//            if (PropertyUtils.getResUploadStartupState()) {
+//                String userPath = HadoopUtils.getHdfsUserDir(user.getTenantCode(), id);
+//                if (HadoopUtils.getInstance().exists(userPath)) {
+//                    HadoopUtils.getInstance().delete(userPath, true);
+//                }
+//            }
+//        }
 
         userMapper.deleteById(id);
         putMsg(result, Status.SUCCESS);
@@ -768,7 +716,7 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
                     sb.append(alertGroups.get(i).getGroupName() + ",");
                 }
                 sb.append(alertGroups.get(alertGroups.size() - 1));
-                user.setAlertGroup(sb.toString());
+//                user.setAlertGroup(sb.toString());
             }
         }
 
@@ -993,7 +941,7 @@ public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
             putMsg(result, Status.REQUEST_PARAMS_NOT_VALID_ERROR, "two passwords are not same");
             return result;
         }
-        User user = createUser(userName, userPassword, email, 1, "", "", Flag.NO.ordinal());
+        User user = createUser(userName, userPassword, email, "", Flag.NO.ordinal());
         putMsg(result, Status.SUCCESS);
         result.put(Constants.DATA_LIST, user);
         return result;

@@ -39,6 +39,14 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import 'canvg/dist/browser/canvg.min.js'
 import 'remixicon/fonts/remixicon.css'
 import formCreate from '@form-create/element-ui'
+import 'sass/conf/home/source.scss' // global css
+import 'sass/conf/home/index.scss' // global css
+import 'sass/conf/home/style.css' // global css
+import 'sass/conf/home/module-style.scss'
+import 'sass/conf/home/iconfont/iconfont.css';
+import 'sass/conf/home/variable.scss';
+import 'sass/conf/home/common.less'; // 统一查询、弹窗等样式
+
 
 // Component internationalization
 const useOpt = i18n.globalScope.LOCALE === 'en_US' ? { locale: locale } : {}

@@ -80,7 +80,35 @@ const menu = {
       ]
     }
   ],
-
+  system: [
+    {
+      name: `${i18n.$t('User Manage')}`,
+      id: 0,
+      path: 'users-manage',
+      isOpen: true,
+      enabled: true,
+      icon: 'el-icon-user-solid',
+      children: []
+    },
+    {
+      name: `${i18n.$t('Role Manage')}`,
+      id: 1,
+      path: 'role-manage',
+      isOpen: true,
+      enabled: true,
+      icon: 'el-icon-user-solid',
+      children: []
+    },
+    {
+      name: `${i18n.$t('Resource Manage')}`,
+      id: 2,
+      path: 'resource-manage',
+      isOpen: true,
+      enabled: true,
+      icon: 'el-icon-user-solid',
+      children: []
+    }
+  ],
   security: [
     {
       name: `${i18n.$t('Tenant Manage')}`,

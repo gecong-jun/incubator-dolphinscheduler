@@ -132,7 +132,7 @@ public class ResourceMapperTest {
         user.setEmail("xx@123.com");
         user.setUserType(UserType.GENERAL_USER);
         user.setCreateTime(new Date());
-        user.setTenantId(1);
+//        user.setTenantId(1);
         user.setUpdateTime(new Date());
         int status = userMapper.insert(user);
 
@@ -316,7 +316,7 @@ public class ResourceMapperTest {
         }
 
         User user = new User();
-        user.setTenantId(tenant.getId());
+//        user.setTenantId(tenant.getId());
         user.setUserName("ut user");
         int userInsertStatus = userMapper.insert(user);
 

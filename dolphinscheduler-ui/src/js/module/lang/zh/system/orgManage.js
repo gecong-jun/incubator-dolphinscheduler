@@ -1,0 +1,67 @@
+export default {
+// 机构管理
+  business: {
+    label: { // 列表/表单标题文字
+      // 权限资源
+      orgNumber: "机构编号",
+      orgName: "机构名称",
+      orgCode: "机构编码",
+      parentText: "上级机构",
+      basicInfo: "基本信息",
+      otherInfo: "其他信息",
+      orgType: "机构类型",
+      province: "省",
+      city: "市",
+      area: "区",
+      address: "地址",
+      phone: "电话",
+      postalCode: "邮政编码",
+      surroundingEnvironment: "周边环境",
+      trafficConditions: "交通情况",
+      longitude: "经度",
+      latitude: "纬度",
+      sortNum: "排序号",
+      busvolumeinfo:"业务量信息",
+      configuration:"配置情况",
+      networksize:"网点规模",
+    },
+    button: { // 按钮文字
+      editParentText: "修改上级机构",
+      addSubOrg: "添加子机构",
+      more: "更多",
+      save: "保存",
+      orgExt: "机构扩展功能",
+      orgExtCode: '扩展编码',
+      orgExtName: '扩展名称',
+      orgExtFuncName: '功能名称',
+    },
+    title: { // 弹出框标题
+      addOrganization: "添加机构",
+      editParentText: "修改上级机构",
+      editOrganization: "修改机构",
+      seeDetail: "查看详情",
+      confirmDel: "确认删除【{orgName}】？",
+      orderNum: "排序号不可以大于999",
+      selectOrg: "请先在左边菜单选择一项机构",
+      deleteOrg: "删除机构",
+    },
+    msg: { // 提示信息
+      /*验证提示信息，命名规范：功能名称_validate_字段名称_验证类型（required:非空验证、length:长度验证）*/
+      org_validate_orgCode_required: '请输入机构编号',
+      org_validate_orgCode_length: '长度在 1 到 20 个字符',
+      org_validate_orgName_required: '请输入机构名称',
+      org_validate_orgName_length: '长度在 1 到 30 个字符',
+      org_validate_orgType_required: '请选择机构类型',
+      org_validate_menuNo_required: '请输入机构排序号',
+      org_validate_postalCode_required: '邮政编码为6位数字',
+      org_validate_addr_length: '长度在 1 到 100 个字符',
+      org_validate_contactNum_length: '长度在 1 到 30 个字符',
+      org_validate_environment_length: '长度在 1 到 100 个字符',
+      org_validate_traffic_length: '长度在 1 到 100 个字符',
+      oper_success: '操作成功',
+      phoneValidMsg: '电话号码只能包含"数字"、"-"、"*"',
+      numOrXiaoMsg: '只能输入整数或小数',
+      formatOrRangeErr: '格式或范围错误',
+    }
+  }
+}

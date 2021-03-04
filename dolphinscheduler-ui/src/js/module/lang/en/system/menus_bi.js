@@ -1,0 +1,20 @@
+export default {
+  systemSetting: 'System',
+  resourse: 'Resource',
+  runParam: 'Running Param',
+  param: 'Params',
+  dataDict: 'Dictionary',
+  orgManage: 'Organization',
+  roleManage: 'Role',
+  workPlatform: 'Work Platform',
+  userManage: 'User Account',
+  userGroupManage: 'User Group',
+  postManage: 'User Post',
+  importTemplateMgr: 'Template Manage',
+  merchantManage: 'Merchant Manage',
+  expand: 'Expand Manage',
+  expandAttr: 'Attribute Manage',
+  expandAttrValue: "Value Manage",
+  templateMgr: "Template Manage",
+  dataImportQuery: "Import Query"
+}

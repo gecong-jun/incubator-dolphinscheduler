@@ -154,7 +154,7 @@ public class ProcessDefinitionMapperTest {
         user.setUserName("hello");
         user.setUserPassword("pwd");
         user.setUserType(UserType.GENERAL_USER);
-        user.setTenantId(tenant.getId());
+//        user.setTenantId(tenant.getId());
         userMapper.insert(user);
         //insertOne
         ProcessDefinition processDefinition = new ProcessDefinition();
@@ -194,7 +194,7 @@ public class ProcessDefinitionMapperTest {
         user.setUserName("hello");
         user.setUserPassword("pwd");
         user.setUserType(UserType.GENERAL_USER);
-        user.setTenantId(tenant.getId());
+//        user.setTenantId(tenant.getId());
         userMapper.insert(user);
 
         //insertOne
@@ -253,7 +253,7 @@ public class ProcessDefinitionMapperTest {
         user.setUserName("hello");
         user.setUserPassword("pwd");
         user.setUserType(UserType.GENERAL_USER);
-        user.setTenantId(tenant.getId());
+//        user.setTenantId(tenant.getId());
         userMapper.insert(user);
 
         //insertOne
@@ -320,7 +320,7 @@ public class ProcessDefinitionMapperTest {
         user.setEmail("xx@123.com");
         user.setUserType(UserType.GENERAL_USER);
         user.setCreateTime(new Date());
-        user.setTenantId(1);
+//        user.setTenantId(1);
         user.setUpdateTime(new Date());
         userMapper.insert(user);
 

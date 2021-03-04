@@ -1,0 +1,72 @@
+{
+  "id": "2333290",
+  "name": "SRCB_运营平台",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "19491150",
+      "name": "icon_NO.1",
+      "font_class": "_NO1",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "19491151",
+      "name": "icon_NO.2",
+      "font_class": "_NO2",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "19491152",
+      "name": "icon_NO.3",
+      "font_class": "_NO3",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "19475713",
+      "name": "排名",
+      "font_class": "_paiming",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "19475714",
+      "name": "icon_学习时长",
+      "font_class": "_xuexishichang",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "19475715",
+      "name": "icon_收藏",
+      "font_class": "_shoucang",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "19475716",
+      "name": "icon_用户数",
+      "font_class": "_yonghushu",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "19475717",
+      "name": "icon_系统知识",
+      "font_class": "_xitongzhishi",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "19475718",
+      "name": "icon_排行榜",
+      "font_class": "_paihangbang",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    }
+  ]
+}

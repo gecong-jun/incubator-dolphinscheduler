@@ -1,0 +1,23 @@
+export default {
+    post:{
+        name:'岗位'
+    },
+    userName:{
+        name:'用户名'
+    },
+    sex:{
+        name:'性别'
+    },
+    email:{
+        name:'邮箱'
+    },
+    tel:{
+        name:'电话'
+    },
+    org:{
+        name:'所属机构'
+    },
+    remark:{
+        name:'描述'
+    }
+}

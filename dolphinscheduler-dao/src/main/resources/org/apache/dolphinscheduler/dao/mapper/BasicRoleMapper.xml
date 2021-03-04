@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.apache.dolphinscheduler.dao.mapper.BasicRoleMapper">
+  <!--<resultMap id="BaseResultMap" type="org.apache.dolphinscheduler.dao.entity.BasicRole">-->
+    <!--&lt;!&ndash;-->
+      <!--WARNING - @mbg.generated-->
+    <!--&ndash;&gt;-->
+    <!--<id column="id" jdbcType="INT" property="id" />-->
+    <!--<result column="role_type" jdbcType="BIT" property="roleType" />-->
+    <!--<result column="role_name" jdbcType="VARCHAR" property="roleName" />-->
+    <!--<result column="role_code" jdbcType="VARCHAR" property="roleCode" />-->
+    <!--<result column="is_disable" jdbcType="BIT" property="disable" />-->
+    <!--<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />-->
+    <!--<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />-->
+  <!--</resultMap>-->
+
+  <select id="queryRolePaging" resultType="org.apache.dolphinscheduler.dao.entity.BasicRole">
+    select u.id,u.role_name,u.role_code,u.is_disable,u.create_time,
+    u.update_time
+    from t_ds_role u
+    where 1=1
+    <if test="roleName!=null and roleName != ''">
+      and u.role_name like concat ('%', #{roleName}, '%')
+    </if>
+    order by u.update_time desc
+  </select>
+</mapper>

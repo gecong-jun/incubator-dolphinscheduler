@@ -78,8 +78,10 @@
     methods: {
       _ok () {
         if (this._verification()) {
+          console.log('111111')
           this.spinnerLoading = true
           this._gLogin().then(res => {
+            console.log('2222222')
             setTimeout(() => {
               this.spinnerLoading = false
               sessionStorage.setItem('isLeft', 1)
@@ -96,6 +98,7 @@
               }
             }, 1000)
           }).catch(e => {
+            console.log('3333333333')
             this.userPasswordText = e.msg
             this.isUserPassword = true
             this.spinnerLoading = false
@@ -118,12 +121,15 @@
       },
       _gLogin () {
         return new Promise((resolve, reject) => {
+          console.log('777777777')
           io.post('login', {
             userName: this.userName,
             userPassword: this.userPassword
           }, res => {
+            console.log('55555555')
             resolve(res)
           }).catch(e => {
+            console.log('6666666666666')
             reject(e)
           })
         })

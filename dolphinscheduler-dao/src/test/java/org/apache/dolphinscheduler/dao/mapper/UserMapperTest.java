@@ -72,7 +72,7 @@ public class UserMapperTest {
         user.setEmail("xx@123.com");
         user.setUserType(UserType.GENERAL_USER);
         user.setCreateTime(new Date());
-        user.setTenantId(1);
+//        user.setTenantId(1);
         user.setUpdateTime(new Date());
         userMapper.insert(user);
         return user;
@@ -91,7 +91,7 @@ public class UserMapperTest {
         user.setEmail("xx@123.com");
         user.setUserType(UserType.GENERAL_USER);
         user.setCreateTime(new Date());
-        user.setTenantId(tenant.getId());
+//        user.setTenantId(tenant.getId());
         user.setUpdateTime(new Date());
         userMapper.insert(user);
         return user;
@@ -111,8 +111,8 @@ public class UserMapperTest {
         user.setEmail("xx@123.com");
         user.setUserType(UserType.GENERAL_USER);
         user.setCreateTime(new Date());
-        user.setTenantId(tenant.getId());
-        user.setQueue(queue.getQueueName());
+//        user.setTenantId(tenant.getId());
+//        user.setQueue(queue.getQueueName());
         user.setUpdateTime(new Date());
         userMapper.insert(user);
         return user;
